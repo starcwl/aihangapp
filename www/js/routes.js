@@ -58,7 +58,7 @@ angular.module('app.routes', [])
     controller: 'loginCtrl'
   })
 
-$urlRouterProvider.otherwise('/main/order')
+$urlRouterProvider.otherwise('/main/location')
 
   
 
