@@ -21,3 +21,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+
+/*----------  styles  ----------*/
+#mapView .scroll{
+  height: 100%;
+}
+
+#ditu{
+  height: 100%;
+  width: 100%;
+}

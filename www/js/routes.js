@@ -10,32 +10,32 @@ angular.module('app.routes', [])
     
   
 
-      .state('tabsController.page2', {
+      .state('tabsController.order', {
     url: '/order',
     views: {
       'tab1': {
-        templateUrl: 'templates/page2.html',
-        controller: 'page2Ctrl'
+        templateUrl: 'templates/order.html',
+        controller: 'orderCtrl'
       }
     }
   })
 
-  .state('tabsController.page3', {
+  .state('tabsController.location', {
     url: '/coupon',
     views: {
       'tab2': {
-        templateUrl: 'templates/page3.html',
-        controller: 'page3Ctrl'
+        templateUrl: 'templates/location.html',
+        controller: 'locationCtrl'
       }
     }
   })
 
-  .state('tabsController.page4', {
+  .state('tabsController.profile', {
     url: '/profile',
     views: {
       'tab3': {
-        templateUrl: 'templates/page4.html',
-        controller: 'page4Ctrl'
+        templateUrl: 'templates/profile.html',
+        controller: 'profileCtrl'
       }
     }
   })

@@ -9730,3 +9730,11 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+/*----------  styles  ----------*/
+#mapView .scroll {
+  height: 100%; }
+
+#ditu {
+  height: 100%;
+  width: 100%; }
