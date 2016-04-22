@@ -21,7 +21,7 @@ angular.module('app.routes', [])
   })
 
   .state('tabsController.location', {
-    url: '/coupon',
+    url: '/location',
     views: {
       'tab2': {
         templateUrl: 'templates/location.html',
