@@ -1,13 +1,14 @@
-    function MessageOverlay(center, backgroundColor, logo, price) {
-        this._center = center;
-        this._color = backgroundColor;
-        this._image = logo;
-        this._price = price;
+    function HotelMarkOverlay(options) {
+        this._center = options.center;
+        this._color = options.bgColor;
+        this._image = options.logo;
+        this._price = options.price;
+        this._info = options.info;
     }
     // 继承API的BMap.Overlay      
-    MessageOverlay.prototype = new BMap.Overlay();
+    HotelMarkOverlay.prototype = new BMap.Overlay();
 
-    MessageOverlay.prototype.initialize = function(map) {
+    HotelMarkOverlay.prototype.initialize = function(map) {
         // 保存map对象实例     
         this._map = map;
         // 创建div元素，作为自定义覆盖物的容器     
@@ -46,13 +47,13 @@
 
         div.appendChild(svg);
         this._div = div;
+        this._div.info = this._info;//传递参数给marker
         // 需要将div元素作为方法的返回值，当调用该覆盖物的show、     
         // hide方法，或者对覆盖物进行移除时，API都将操作此元素。     
-
         return div;
     }
 
-    MessageOverlay.prototype.draw = function() {
+    HotelMarkOverlay.prototype.draw = function() {
         // 根据地理坐标转换为像素坐标，并设置给容器      
         var position = this._map.pointToOverlayPixel(this._center);
         this._div.style.left = position.x - 23 + "px"; // adjust mark center
@@ -60,14 +61,18 @@
     }
 
     // 实现显示方法      
-    MessageOverlay.prototype.show = function() {
+    HotelMarkOverlay.prototype.show = function() {
             if (this._div) {
                 this._div.style.display = "";
             }
         }
-    // 实现隐藏方法    
-    MessageOverlay.prototype.hide = function() {
+        // 实现隐藏方法    
+    HotelMarkOverlay.prototype.hide = function() {
         if (this._div) {
             this._div.style.display = "none";
         }
     }
+    HotelMarkOverlay.prototype.addEventListener = function(event, fun){
+        this._div.addEventListener(event, fun);
+    }
+
