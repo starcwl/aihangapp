@@ -15,7 +15,6 @@ angular.module('app.controllers', [])
 
     navigator.geolocation.getCurrentPosition(
         function(position) {
-      alert('dd')
             GeoService.ConvertGeo({
                 longitude: position.coords.longitude,
                 latitude: position.coords.latitude,
