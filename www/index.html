@@ -8,12 +8,13 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+    <script type="text/javascript" src='lib/ngCordova/dist/ng-cordova.js'></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+   
 
     <style type="text/css">
       .platform-ios .manual-ios-statusbar-padding{
@@ -32,6 +33,12 @@
     <script src="js/routes.js"></script>
     <script src="js/services.js"></script>
     <script src="js/directives.js"></script>
+    <!-- 
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=L6uEitzgnhkZ7qAvmDCoQvBDEdXtWap3"> </script>
+     -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=L6uEitzgnhkZ7qAvmDCoQvBDEdXtWap3&v=1.0"></script>  
+    <script type="text/javascript" src='js/ah-bdmap.js'></script>
+
 
     <!-- Only required for Tab projects w/ pages in multiple tabs 
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
