@@ -6,13 +6,23 @@ angular.module('app.controllers', [])
 
 .controller('locationCtrl', function($scope, $window, $http, GeoService) {
 
-
-
     var map = new BMap.Map("ditu"); // 创建地图实例  
     var selfPoint = new BMap.Point(116.404, 39.915); // 初始化点坐标在首都  
     map.centerAndZoom(selfPoint, 15); // 初始化地图，设置中心点坐标和地图级别
     var selfMarker = new BMap.Marker(selfPoint);
 
+    // 随机向地图添加10个标注      
+    var createRandomHotels = function() {
+        var bounds = map.getBounds();
+        var lngSpan = bounds.getNorthEast().lng - bounds.getSouthWest().lng;
+        var latSpan = bounds.getNorthEast().lat - bounds.getSouthWest().lat;
+        for (var i = 0; i < 10; i++) {
+            var point = new BMap.Point(bounds.getSouthWest().lng + lngSpan * (Math.random() * 0.7 + 0.15), bounds.getSouthWest().lat + latSpan * (Math.random() * 0.7 + 0.15));
+            addMarker(point, i);
+        }
+    }
+
+    // 首次选址
     navigator.geolocation.getCurrentPosition(
         function(position) {
             GeoService.ConvertGeo({
@@ -25,6 +35,7 @@ angular.module('app.controllers', [])
                     map.removeOverlay(selfMarker);
                     selfMarker = new BMap.Marker(selfPoint); // 创建标注    
                     map.addOverlay(selfMarker); // 将标注添加到地图中
+                    createRandomHotels();
                     console.log('response is :', response);
                 }
             });
@@ -50,9 +61,6 @@ angular.module('app.controllers', [])
 
 
 
-
-
-
     function addMarker(point, index) { // 创建图标对象     
 
         var options = {
@@ -71,33 +79,37 @@ angular.module('app.controllers', [])
             // $window.location.href = 'http://www.baidu.com';
         });
     }
-    // 随机向地图添加10个标注      
-    var bounds = map.getBounds();
-    var lngSpan = bounds.getNorthEast().lng - bounds.getSouthWest().lng;
-    var latSpan = bounds.getNorthEast().lat - bounds.getSouthWest().lat;
-    for (var i = 0; i < 10; i++) {
-        var point = new BMap.Point(bounds.getSouthWest().lng + lngSpan * (Math.random() * 0.7 + 0.15), bounds.getSouthWest().lat + latSpan * (Math.random() * 0.7 + 0.15));
-        addMarker(point, i);
-    }
+
+
 
     //zoomEnd event
-    // map.addEventListener('zoomend', function(e) {
-    //     map.clearOverlays();
-
-    //     for (var i = 0; i < 3; i++) {
-    //         var point = new BMap.Point(bounds.getSouthWest().lng + lngSpan * (Math.random() * 0.7 + 0.15), bounds.getSouthWest().lat + latSpan * (Math.random() * 0.7 + 0.15));
-    //         addMarker(point, i);
-    //     }
-    // });
+    map.addEventListener('zoomend', function(e) {
+        map.clearOverlays();
+        var bounds = map.getBounds();
+        var lngSpan = bounds.getNorthEast().lng - bounds.getSouthWest().lng;
+        var latSpan = bounds.getNorthEast().lat - bounds.getSouthWest().lat;
+        for (var i = 0; i < 3; i++) {
+            var point = new BMap.Point(bounds.getSouthWest().lng + lngSpan * (Math.random() * 0.7 + 0.15), bounds.getSouthWest().lat + latSpan * (Math.random() * 0.7 + 0.15));
+            addMarker(point, i);
+        }
+    });
 
 
 
     function onSuccess(position) {
-        selfPoint = new BMap.Point(position.coords.longitude, position.coords.latitude);
-        map.removeOverlay(selfMarker);
-        selfMarker = new BMap.Marker(selfPoint); // 创建标注    
-        map.addOverlay(marker); // 将标注添加到地图中
-        console.log('updated position:', position);
+
+        GeoService.ConvertGeo({
+            longitude: position.coords.longitude,
+            latitude: position.coords.latitude,
+        }, function(success, response) {
+            if (success) {
+                selfPoint = new BMap.Point(response.longitude, response.latitude);
+                map.removeOverlay(selfMarker);
+                selfMarker = new BMap.Marker(selfPoint); // 创建标注    
+                map.addOverlay(selfMarker); // 将标注添加到地图中
+                console.log('response is :', response);
+            }
+        })
     }
 
     // onError Callback receives a PositionError object
@@ -109,7 +121,7 @@ angular.module('app.controllers', [])
 
     // Options: throw an error if no update is received every 30 seconds.
     //
-    // navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 3000 });
+    navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 3000 });
 
 })
 
