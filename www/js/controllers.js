@@ -92,6 +92,8 @@ angular.module('app.controllers', [])
             var point = new BMap.Point(bounds.getSouthWest().lng + lngSpan * (Math.random() * 0.7 + 0.15), bounds.getSouthWest().lat + latSpan * (Math.random() * 0.7 + 0.15));
             addMarker(point, i);
         }
+        selfMarker = new BMap.Marker(selfPoint); // 创建标注    
+        map.addOverlay(selfMarker); // 将标注添加到地图中
     });
 
 
