@@ -4,7 +4,7 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('locationCtrl', function($scope, $window, $http, GeoService) {
+.controller('locationCtrl', function($scope, $window, $http, GeoService, $state) {
 
     var map = new BMap.Map("ditu"); // 创建地图实例  
     var selfPoint = new BMap.Point(116.404, 39.915); // 初始化点坐标在首都  
@@ -77,6 +77,7 @@ angular.module('app.controllers', [])
         marker.addEventListener("click", function(e) {
             alert("您点击了标注");
             // $window.location.href = 'http://www.baidu.com';
+            $state.go('hotel')
         });
     }
 
@@ -124,6 +125,10 @@ angular.module('app.controllers', [])
     // Options: throw an error if no update is received every 30 seconds.
     //
     navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 3000 });
+
+})
+
+.controller('hotelCtrl', function($scope) {
 
 })
 

@@ -9,11 +9,20 @@ angular.module('app.routes', [])
     $stateProvider
 
 
+        .state('tabsController.hotel', {
+        url: '/hotel',
+        views: {
+            'location': {
+                templateUrl: 'templates/hotel.html',
+                controller: 'hotelCtrl'
+            }
+        }
+    })
 
     .state('tabsController.order', {
         url: '/order',
         views: {
-            'tab1': {
+            'order': {
                 templateUrl: 'templates/order.html',
                 controller: 'orderCtrl'
             }
@@ -23,7 +32,7 @@ angular.module('app.routes', [])
     .state('tabsController.location', {
         url: '/location',
         views: {
-            'tab2': {
+            'location': {
                 templateUrl: 'templates/location.html',
                 controller: 'locationCtrl'
             }
@@ -58,7 +67,8 @@ angular.module('app.routes', [])
         controller: 'loginCtrl'
     })
 
-    $urlRouterProvider.otherwise('/main/location')
+
+    $urlRouterProvider.otherwise('/main/order')
 
 
 });
