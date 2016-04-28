@@ -7,17 +7,15 @@ angular.module('app.routes', [])
     // Set up the various states which the app can be in.
     // Each state's controller can be found in controllers.js
     $stateProvider
-
-
-        .state('tabsController.hotel', {
-        url: '/hotel',
-        views: {
-            'location': {
-                templateUrl: 'templates/hotel.html',
-                controller: 'hotelCtrl'
-            }
-        }
-    })
+        // .state('tabsController.hotel', {
+        //     url: '/hotel',
+        //     views: {
+        //         'order': {
+        //             templateUrl: 'templates/hotel.html',
+        //             controller: 'hotelCtrl'
+        //         }
+        //     }
+        // })
 
     .state('tabsController.order', {
         url: '/order',
@@ -39,10 +37,21 @@ angular.module('app.routes', [])
         }
     })
 
+    $stateProvider
+        .state('tabsController.hotel', {
+            url: '/hotel/:id',
+            views: {
+                'location': {
+                    templateUrl: 'templates/hotel.html',
+                    controller: 'hotelCtrl'
+                }
+            }
+        })
+
     .state('tabsController.profile', {
         url: '/profile',
         views: {
-            'tab3': {
+            'profile': {
                 templateUrl: 'templates/profile.html',
                 controller: 'profileCtrl'
             }
@@ -51,23 +60,33 @@ angular.module('app.routes', [])
 
     .state('tabsController', {
         url: '/main',
-        templateUrl: 'templates/tabsController.html',
-        abstract: true
+        views: {
+            'mainContent': {
+                templateUrl: 'templates/tabsController.html',
+                abstract: true
+            }
+        }
     })
 
     .state('signup', {
         url: '/signup',
-        templateUrl: 'templates/signup.html',
-        controller: 'signupCtrl'
+        views: {
+            'mainContent': {
+                templateUrl: 'templates/signup.html',
+                controller: 'signupCtrl'
+            }
+        }
     })
 
     .state('login', {
         url: '/login',
-        templateUrl: 'templates/login.html',
-        controller: 'loginCtrl'
+        views: {
+            'mainContent': {
+                templateUrl: 'templates/login.html',
+                controller: 'loginCtrl'
+            }
+        }
     })
-
-
     $urlRouterProvider.otherwise('/main/order')
 
 

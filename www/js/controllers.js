@@ -68,16 +68,16 @@ angular.module('app.controllers', [])
             bgColor: '#00abc4',
             logo: 'img/marker.png',
             price: Math.floor(Math.random() * 100 + 100),
-            info: 'world'
+            info: index // 传递参数给marker，识别marker
         };
         // 创建标注对象并添加到地图     
         var marker = new HotelMarkOverlay(options);
         map.addOverlay(marker);
 
         marker.addEventListener("click", function(e) {
-            alert("您点击了标注");
-            // $window.location.href = 'http://www.baidu.com';
-            $state.go('hotel')
+            // alert("您点击了标注");
+            // $window.location.href = '#/main/hotel/' + e.currentTarget.info;
+            $state.go('tabsController.hotel',{id:e.currentTarget.info})
         });
     }
 
