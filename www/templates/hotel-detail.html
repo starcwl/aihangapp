@@ -1,0 +1,37 @@
+<ion-view title="酒店详情" id="page8">
+    <ion-content padding="true" class="manual-ios-statusbar-padding">
+        <div style="margin: 0px; line-height: 250px; background-color: rgb(255, 255, 255); border: 1px solid rgb(238, 238, 238); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; text-align: center;">
+            <img src='img/hotels/{{hotel.image}}'>
+        </div>
+        <ion-list>
+            <ion-item class="item-divider">基础信息</ion-item>
+        </ion-list>
+        <ion-list>
+            <ion-item>
+                <h2>{{hotel.name}}</h2>
+            </ion-item>
+            <ion-item class="item-icon-left">
+                <i class="fa fa-phone icon"></i>
+                <h2>{{hotel.phone}}</h2>
+            </ion-item>
+            <ion-item class="item-divider">酒店设施(facilities)</ion-item>
+        </ion-list>
+        <ion-list>
+            <ion-item>
+                <ul>
+                    <li ng-repeat="facility in hotel.facilities">
+                        • {{facility.name}}
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item-divider">评价</ion-item>
+        </ion-list>
+        <ion-list>
+            <ion-item ng-repeat='comment in hotel.comments'>
+                <h2>{{comment.comment}}</h2>
+                <!-- <p class="pull-right">rating:{{comment.rating}}</p> -->
+                <p class="pull-right">{{comment.author}}</p>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

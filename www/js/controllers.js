@@ -77,7 +77,7 @@ angular.module('app.controllers', [])
         marker.addEventListener("click", function(e) {
             // alert("您点击了标注");
             // $window.location.href = '#/main/hotel/' + e.currentTarget.info;
-            $state.go('tabsController.hotel',{id:e.currentTarget.info})
+            $state.go('tabsController.hotelR')
         });
     }
 
@@ -128,10 +128,29 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('hotelCtrl', function($scope) {
+.controller('hotelCtrl', ['$scope', '$stateParams', 'hotelService', function($scope, $stateParams, hotelService ) {
+    console.log($stateParams);
+    hotelService.getHotelById($stateParams.id).$promise.then(function(data){
+        $scope.hotel = data;
+        $scope.facilitiesName = $scope.hotel.facilities.map(function(f){return f.name;}).toString();
+    });
 
-})
+}])
 
+.controller('hotelRandomCtrl', ['$scope', '$stateParams', 'hotelService', function($scope, $stateParams, hotelService ) {
+    hotelService.getRandomHotel().$promise.then(function(data){
+        $scope.hotel = data;
+        $scope.facilitiesName = $scope.hotel.facilities.map(function(f){return f.name;}).toString();
+    });
+
+}])
+.controller('hotelDetailCtrl', ['$scope', '$stateParams', 'hotelService', function($scope, $stateParams, hotelService ) {
+    console.log($stateParams);
+    hotelService.getHotelById($stateParams.id).$promise.then(function(data){
+        $scope.hotel = data;
+    });
+
+}])
 .controller('profileCtrl', function($scope) {
 
 })
@@ -143,3 +162,8 @@ angular.module('app.controllers', [])
 .controller('loginCtrl', function($scope) {
 
 })
+
+.controller('hotelListCtrl', ['$scope', 'hotelService', function($scope, hotelService){
+    $scope.hotels = hotelService.getAllHotels();
+
+}])
