@@ -85,6 +85,17 @@ angular.module('app.routes', [])
     }
   })
 
+  .state('tabsController.profileDetail', {
+    url: '/profile/:id/detail',
+    views: {
+      'profile': {
+        templateUrl: 'templates/profile-detail.html',
+        controller: 'profileDetailCtrl'
+      }
+    }
+  })
+
+
   .state('tabsController', {
     url: '/main',
     views: {

@@ -39,5 +39,15 @@ angular.module('app.services', [])
         return $resource(baseURL + 'hotels/random').get();
     }
 
+    this.bookHotel = function(roomId, hotelId){
+        return $resource(baseURL + 'orders/:hotelId/:roomId', {hotelId:hotelId, roomId: roomId}).save();
+    };
+
+}])
+
+.service('orderService', ['$resource', 'baseURL', function($resource, baseURL){
+    this.myOrders = function(){
+        return $resource(baseURL + 'orders').query();
+    }
 }])
 ;

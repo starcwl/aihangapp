@@ -135,6 +135,15 @@ angular.module('app.controllers', [])
         $scope.facilitiesName = $scope.hotel.facilities.map(function(f){return f.name;}).toString();
     });
 
+    $scope.book = function(room, hotel){
+        hotelService.bookHotel(room._id, hotel._id).$promise.then(function(response){
+            if(response.success)
+            {
+                alert('预定成功！');
+            }
+        });
+    };
+
 }])
 
 .controller('hotelRandomCtrl', ['$scope', '$stateParams', 'hotelService', function($scope, $stateParams, hotelService ) {
@@ -151,7 +160,20 @@ angular.module('app.controllers', [])
     });
 
 }])
-.controller('profileCtrl', function($scope) {
+.controller('profileCtrl', ['$scope', 'orderService', function($scope , orderService) {
+    orderService.myOrders().$promise
+        .then(function(orders){
+            $scope.orders = orders;
+            orders.forEach(function(order){
+                var room = _.find(order.hotel.rooms, function(room){
+                    return room._id === order.room;
+                });
+                order.room = room;
+            })
+        })
+
+}])
+.controller('profileDetailCtrl', function($scope) {
 
 })
 

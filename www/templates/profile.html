@@ -1,6 +1,14 @@
-<ion-view title="我" id="profile">
+<ion-view title="我的订单" id="profile">
     <ion-content padding="true" class="has-header">
-        <a href="#/main/hotel" id="order-button2" class="button button-positive  button-block icon-left ion-search">搜索</a>
-        <a href="#/signup" id="order-button2" class="button button-positive  button-block icon-left ion-search">搜索</a>
+        <ion-list ng-repeat="order in orders">
+            <ion-item class='item-thumbnail-left' ui-sref='tabsController.profileDetail({id:order._id})'>
+              <img src='img/hotels/{{order.hotel.image}}' >
+              <h2>{{order.hotel.name}}</h2>
+              <p>电话：{{order.hotel.phone}}</p>
+              <p>{{order.room.name}}</p>
+              <p class="pull-right">¥ {{order.room.price}} 元</p>
+              <p>{{order.hotel.location}}</p>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>
