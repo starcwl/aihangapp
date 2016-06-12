@@ -1,5 +1,5 @@
 angular.module('app.services', [])
-
+.constant('baseURL','http://localhost:6001/')
 .factory('BlankFactory', [function(){
 
 }])
@@ -25,4 +25,19 @@ angular.module('app.services', [])
 
     }
 
-}]);
+}])
+.service('hotelService', ['$resource', 'baseURL', function($resource, baseURL){
+    this.getAllHotels = function(){
+        return $resource(baseURL + 'hotels/search').query();
+    };
+
+    this.getHotelById = function(id){
+        return $resource(baseURL + 'hotels/:id', {id:'@id'}).get({id:id});
+    }
+
+    this.getRandomHotel =function(){
+        return $resource(baseURL + 'hotels/random').get();
+    }
+
+}])
+;

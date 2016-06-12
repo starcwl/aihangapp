@@ -4,7 +4,7 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('locationCtrl', function($scope, $window, $http, GeoService) {
+.controller('locationCtrl', function($scope, $window, $http, GeoService, $state) {
 
     var map = new BMap.Map("ditu"); // 创建地图实例  
     var selfPoint = new BMap.Point(116.404, 39.915); // 初始化点坐标在首都  
@@ -68,15 +68,16 @@ angular.module('app.controllers', [])
             bgColor: '#00abc4',
             logo: 'img/marker.png',
             price: Math.floor(Math.random() * 100 + 100),
-            info: 'world'
+            info: index // 传递参数给marker，识别marker
         };
         // 创建标注对象并添加到地图     
         var marker = new HotelMarkOverlay(options);
         map.addOverlay(marker);
 
         marker.addEventListener("click", function(e) {
-            alert("您点击了标注");
-            // $window.location.href = 'http://www.baidu.com';
+            // alert("您点击了标注");
+            // $window.location.href = '#/main/hotel/' + e.currentTarget.info;
+            $state.go('tabsController.hotelR')
         });
     }
 
@@ -127,6 +128,29 @@ angular.module('app.controllers', [])
 
 })
 
+.controller('hotelCtrl', ['$scope', '$stateParams', 'hotelService', function($scope, $stateParams, hotelService ) {
+    console.log($stateParams);
+    hotelService.getHotelById($stateParams.id).$promise.then(function(data){
+        $scope.hotel = data;
+        $scope.facilitiesName = $scope.hotel.facilities.map(function(f){return f.name;}).toString();
+    });
+
+}])
+
+.controller('hotelRandomCtrl', ['$scope', '$stateParams', 'hotelService', function($scope, $stateParams, hotelService ) {
+    hotelService.getRandomHotel().$promise.then(function(data){
+        $scope.hotel = data;
+        $scope.facilitiesName = $scope.hotel.facilities.map(function(f){return f.name;}).toString();
+    });
+
+}])
+.controller('hotelDetailCtrl', ['$scope', '$stateParams', 'hotelService', function($scope, $stateParams, hotelService ) {
+    console.log($stateParams);
+    hotelService.getHotelById($stateParams.id).$promise.then(function(data){
+        $scope.hotel = data;
+    });
+
+}])
 .controller('profileCtrl', function($scope) {
 
 })
@@ -138,3 +162,8 @@ angular.module('app.controllers', [])
 .controller('loginCtrl', function($scope) {
 
 })
+
+.controller('hotelListCtrl', ['$scope', 'hotelService', function($scope, hotelService){
+    $scope.hotels = hotelService.getAllHotels();
+
+}])

@@ -1,0 +1,15 @@
+<ion-view title="酒店列表" id="page8">
+    <ion-content padding="true" class="manual-ios-statusbar-padding">
+        <ion-list ng-repeat="hotel in hotels">
+            <ion-item class='item-thumbnail-left' ui-sref='tabsController.hotel({id:hotel._id})'>
+              <img src='img/hotels/{{hotel.image}}' >
+              <h2>{{hotel.name}}</h2>
+              <p>电话：{{hotel.phone}}</p>
+              <p>¥ {{hotel.price}} 元</p>
+              <p>{{hotel.location}}</p>
+            </ionao-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
+
+
